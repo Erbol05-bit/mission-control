@@ -252,3 +252,23 @@ footer {
   color: #8fa0c8;
   font-size: 13px;
 }
+
+.start {
+  max-width: 720px;
+  padding-top: 8vh;
+}
+
+.start h1 {
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+
+.lead {
+  font-size: 18px;
+  color: #c9d4f0;
+}
+
+.steps {
+  padding-left: 22px;
+  line-height: 1.7;
+}

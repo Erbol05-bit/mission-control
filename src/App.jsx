@@ -12,6 +12,7 @@ const STEPS = ['Mission', 'Spacecraft', 'Launch & Orbit', 'Review']
 export default function App() {
   const [design, setDesign] = useState(emptyDesign())
   const [step, setStep] = useState(0)
+  const [started, setStarted] = useState(false)
   const [flying, setFlying] = useState(false)
   const [report, setReport] = useState(null) // event log of the finished flight
 
@@ -23,6 +24,7 @@ export default function App() {
     setReport(null)
   }
 
+  if (!started) return <StartScreen onStart={() => setStarted(true)} />
   if (flying) {
     return (
       <Simulation
@@ -83,6 +85,41 @@ export default function App() {
           {step < 3 && <button className="primary" onClick={() => setStep(step + 1)}>Next</button>}
         </footer>
       )}
+    </div>
+  )
+}
+
+function StartScreen({ onStart }) {
+  return (
+    <div className="app start">
+      <h1>Mission Control: Beyond Earth</h1>
+      <p className="lead">
+        Design a space mission the way NASA teams do: start from a science goal, then balance
+        budget, mass, power and data to make it fly.
+      </p>
+      <ol className="steps">
+        <li>
+          <strong>Choose a mission.</strong> The science goal decides which instruments you need.
+        </li>
+        <li>
+          <strong>Build the spacecraft.</strong> Every part adds capability, and also mass, power
+          use and cost.
+        </li>
+        <li>
+          <strong>Pick an orbit and a rocket.</strong> The rocket must lift the spacecraft and its
+          fuel.
+        </li>
+        <li>
+          <strong>Fly it.</strong> Things go wrong in space. The margins you designed in decide
+          what you can survive.
+        </li>
+        <li>
+          <strong>Read the report.</strong> See why the mission succeeded or failed, then improve
+          the design and fly again.
+        </li>
+      </ol>
+      <p className="hint">There is no single right answer. Different designs can reach the same goal.</p>
+      <button className="primary big" onClick={onStart}>Start mission design</button>
     </div>
   )
 }
@@ -183,6 +220,7 @@ function MissionStep({ design, onPick }) {
             onClick={() => onPick(m.id)}
             title={m.title}
             lines={[
+              `Difficulty: ${m.difficulty}`,
               m.brief,
               `Budget: $${m.budget}M`,
               `Must measure: ${m.requiredCategories.join(', ')}`,
@@ -390,6 +428,42 @@ function Report({ result, log, onRetry, onRestart }) {
         <p className="hint">
           Planned science before launch: {planned.science} points. After the flight: {result.science}.
         </p>
+
+        <h2>Mission segments</h2>
+        <table>
+          <tbody>
+            <tr>
+              <td>Launch</td>
+              <td>
+                {planned.launcher.name} lifted {planned.launchMass} kg of a possible{' '}
+                {planned.massLimit} kg.
+              </td>
+            </tr>
+            <tr>
+              <td>Space</td>
+              <td>
+                {planned.bus.name} with {planned.instruments.map((i) => i.name).join(', ')} in a{' '}
+                {planned.orbit.name.toLowerCase()} for {planned.design.years} year
+                {planned.design.years > 1 ? 's' : ''}.
+              </td>
+            </tr>
+            <tr>
+              <td>Ground</td>
+              <td>
+                {planned.antenna.name}: {planned.orbit.contactHours} h of contact per day. The link
+                can carry {planned.downlink.toFixed(1)} Gb/day; the instruments produce{' '}
+                {planned.dataGen.toFixed(1)} Gb/day.
+              </td>
+            </tr>
+            <tr>
+              <td>User</td>
+              <td>
+                Scientists received {result.science} science points; the goal was{' '}
+                {result.mission.minScience}.
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
         <h2>What happened in flight</h2>
         {log.map((entry) => (

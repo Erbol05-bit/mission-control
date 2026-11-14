@@ -37,7 +37,8 @@ export const MISSIONS = [
     title: 'Lunar South Pole Survey',
     brief:
       'Map the terrain and search for water ice near the lunar south pole to prepare future landings.',
-    budget: 320, // $M
+    difficulty: 'Easy',
+    budget: 360, // $M
     minScience: 30,
     requiredCategories: ['topography', 'volatiles'],
     realMission: {
@@ -51,6 +52,7 @@ export const MISSIONS = [
     title: 'Mars Surface Reconnaissance',
     brief:
       'Photograph the surface in detail and identify minerals that formed in water.',
+    difficulty: 'Medium',
     budget: 560,
     minScience: 50,
     requiredCategories: ['imaging', 'composition'],
@@ -65,7 +67,8 @@ export const MISSIONS = [
     title: 'Asteroid Sample Return',
     brief:
       'Map a near-Earth asteroid, pick a safe site, collect a sample and bring it home.',
-    budget: 700,
+    difficulty: 'Hard',
+    budget: 620,
     minScience: 55,
     requiredCategories: ['imaging', 'sample'],
     realMission: {

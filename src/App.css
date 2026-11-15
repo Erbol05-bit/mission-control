@@ -272,3 +272,51 @@ footer {
   padding-left: 22px;
   line-height: 1.7;
 }
+
+/* Spacecraft step: parts on the left, the 3D model stays in view on the right. */
+.builder {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 400px;
+  gap: 20px;
+  align-items: start;
+}
+
+.builder-list {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.builder-view {
+  grid-column: 2;
+  grid-row: 1;
+  position: sticky;
+  top: 104px;
+}
+
+.builder-list h2:first-child {
+  margin-top: 12px;
+}
+
+.problem {
+  margin: 6px 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #2a1218;
+  color: #ff8c97;
+}
+
+.problem.soft {
+  background: #33290f;
+  color: #ffd27a;
+}
+
+@media (max-width: 900px) {
+  .builder {
+    display: block;
+  }
+
+  .builder-view {
+    position: static;
+  }
+}

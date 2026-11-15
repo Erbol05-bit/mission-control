@@ -12,7 +12,7 @@ const STORM_LOSS = 0.3
 const LINK_LOSS = 0.4
 
 // The instrument that produces the most data works hardest and fails first.
-const busiest = (r) => [...r.instruments].sort((a, b) => b.data - a.data)[0]
+export const busiest = (r) => [...r.instruments].sort((a, b) => b.data - a.data)[0]
 
 export const EVENTS = [
   {

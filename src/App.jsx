@@ -189,12 +189,16 @@ function ResourcePanel({ result }) {
   )
 }
 
-function Card({ selected, disabled, onClick, title, lines, note }) {
+function Card({ selected, disabled, onClick, onHover, title, lines, note }) {
   return (
     <button
       className={selected ? 'card selected' : 'card'}
       disabled={disabled}
       onClick={onClick}
+      onMouseEnter={() => onHover?.(true)}
+      onMouseLeave={() => onHover?.(false)}
+      onFocus={() => onHover?.(true)}
+      onBlur={() => onHover?.(false)}
     >
       <strong>{title}</strong>
       {lines.map((line) => (
@@ -240,9 +244,25 @@ function SpacecraftStep({ design, result, set }) {
         ? design.instrumentIds.filter((x) => x !== id)
         : [...design.instrumentIds, id],
     })
+  // Hovering a card makes its part glow on the 3D model.
+  const [highlight, setHighlight] = useState(null)
+  const hover = (part) => (inside) => setHighlight(inside ? part : null)
+  const problems = result.checks.filter((c) => !c.ok && c.id !== 'parts')
   return (
-    <>
-      <MissionScene result={result} mode="preview" />
+    <div className="builder">
+      <aside className="builder-view">
+        <MissionScene result={result} mode="preview" height={340} highlight={highlight} />
+        <p className="hint">
+          Hover a part to find it on the model. A part that blinks red or orange has a problem.
+        </p>
+        {problems.map((c) => (
+          <p key={c.id} className="problem">Failed check: {c.label}</p>
+        ))}
+        {result.warnings.map((w) => (
+          <p key={w} className="problem soft">{w}</p>
+        ))}
+      </aside>
+      <div className="builder-list">
       <h2>Spacecraft bus</h2>
       <div className="grid">
         {BUSES.map((b) => (
@@ -250,6 +270,7 @@ function SpacecraftStep({ design, result, set }) {
             key={b.id}
             selected={design.busId === b.id}
             onClick={() => set({ busId: b.id })}
+            onHover={hover('bus')}
             title={b.name}
             lines={[
               `${b.dryMass} kg · ${b.basePower} W · $${b.cost}M`,
@@ -271,6 +292,7 @@ function SpacecraftStep({ design, result, set }) {
             key={p.id}
             selected={design.powerId === p.id}
             onClick={() => set({ powerId: p.id })}
+            onHover={hover('power')}
             title={p.name}
             lines={[
               `${Math.round(p.power * result.target.solarFactor)} W here`,
@@ -287,6 +309,7 @@ function SpacecraftStep({ design, result, set }) {
             key={a.id}
             selected={design.antennaId === a.id}
             onClick={() => set({ antennaId: a.id })}
+            onHover={hover('antenna')}
             title={a.name}
             lines={[`${a.rate[target]} Mbps from here`, `${a.mass} kg · ${a.power} W · $${a.cost}M`]}
           />
@@ -303,6 +326,7 @@ function SpacecraftStep({ design, result, set }) {
             key={i.id}
             selected={design.instrumentIds.includes(i.id)}
             onClick={() => toggle(i.id)}
+            onHover={hover(`inst:${i.id}`)}
             title={i.name}
             lines={[
               `Measures: ${i.category}`,
@@ -313,7 +337,8 @@ function SpacecraftStep({ design, result, set }) {
           />
         ))}
       </div>
-    </>
+      </div>
+    </div>
   )
 }
 

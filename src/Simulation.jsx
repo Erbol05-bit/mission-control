@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import MissionScene from './MissionScene.jsx'
-import { PHASES, pickEvents } from './game/events.js'
+import { PHASES, pickEvents, busiest } from './game/events.js'
 
 function phaseText(phase, r) {
   switch (phase) {
@@ -62,7 +62,15 @@ export default function Simulation({ result, onFinish }) {
         </nav>
       </header>
 
-      <MissionScene result={result} mode={phaseIndex < 2 ? 'cruise' : 'orbit'} height={340} />
+      <MissionScene
+        result={result}
+        mode={['cruise', 'cruise', 'orbit', 'science'][phaseIndex]}
+        height={380}
+        effect={event ? event.id : null}
+        effectTarget={event?.id === 'instrument' ? busiest(current).id : null}
+        lostIds={lost.filter(Boolean)}
+        damaged={log.some((entry) => entry.id === 'storm')}
+      />
 
       <main>
         <p>{phaseText(phase, result)}</p>

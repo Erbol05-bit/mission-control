@@ -264,6 +264,11 @@ function SpacecraftStep({ design, result, set }) {
       </aside>
       <div className="builder-list">
       <h2>Spacecraft bus</h2>
+      <p className="hint">
+        The bus is the body of the spacecraft: structure, computer, attitude control and thermal
+        systems. A bigger bus carries more and has backup systems, but everything you add must
+        also be lifted by the rocket.
+      </p>
       <div className="grid">
         {BUSES.map((b) => (
           <Card
@@ -303,6 +308,10 @@ function SpacecraftStep({ design, result, set }) {
       </div>
 
       <h2>Communications</h2>
+      <p className="hint">
+        The signal weakens with distance, so the same antenna is far slower from Mars than from
+        the Moon. Data that cannot be sent home is lost.
+      </p>
       <div className="grid">
         {ANTENNAS.map((a) => (
           <Card
@@ -347,6 +356,10 @@ function LaunchStep({ design, result, set }) {
   return (
     <>
       <h2>Orbit</h2>
+      <p className="hint">
+        The orbit decides how close the instruments get, how much fuel the trip takes and how
+        long the spacecraft can talk to Earth each day.
+      </p>
       <div className="grid">
         {ORBITS.map((o) => (
           <Card

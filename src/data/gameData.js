@@ -1,9 +1,9 @@
 // All game data lives here, so it can be edited without touching the game code.
 //
-// IMPORTANT: the numbers are approximations based on real NASA missions
-// (LRO, MRO, OSIRIS-REx). Every entry has a `basedOn` field naming the real
-// hardware. Before submitting, check each number against the NASA page listed
-// in SOURCES.md and set `verified: true`.
+// The numbers are based on real NASA missions (LRO, MRO, OSIRIS-REx). Every
+// entry has a `basedOn` field naming the real hardware. SOURCES.md lists which
+// values were checked against published mission data and which are game
+// estimates (cost, data volume, science points, rocket capacity).
 
 // Where the mission goes. These factors turn one design into different results.
 export const TARGETS = {
@@ -152,6 +152,8 @@ export const INSTRUMENTS = [
     id: 'hires',
     name: 'High-resolution camera',
     basedOn: 'HiRISE (MRO)',
+    info:
+      'Takes very sharp images that show details smaller than a metre. Used to study geology and to check landing sites for hazards.',
     category: 'imaging',
     mass: 65, power: 60, cost: 40, data: 30, science: 30,
   },
@@ -159,6 +161,8 @@ export const INSTRUMENTS = [
     id: 'context',
     name: 'Context camera',
     basedOn: 'CTX (MRO)',
+    info:
+      'Takes wide images of the area around a detailed picture, so scientists can see where it fits in the landscape.',
     category: 'imaging',
     mass: 4, power: 7, cost: 8, data: 8, science: 12,
   },
@@ -166,6 +170,8 @@ export const INSTRUMENTS = [
     id: 'spectrometer',
     name: 'Imaging spectrometer',
     basedOn: 'CRISM (MRO)',
+    info:
+      'Splits reflected sunlight into hundreds of colours to identify minerals, including those that formed in water.',
     category: 'composition',
     mass: 33, power: 45, cost: 30, data: 15, science: 25,
   },
@@ -173,6 +179,8 @@ export const INSTRUMENTS = [
     id: 'radar',
     name: 'Radar sounder',
     basedOn: 'SHARAD (MRO)',
+    info:
+      'Sends radio waves into the ground and listens for echoes from buried layers. Reveals ice and rock under the surface.',
     category: 'subsurface',
     mass: 15, power: 60, cost: 25, data: 10, science: 20,
   },
@@ -180,27 +188,35 @@ export const INSTRUMENTS = [
     id: 'altimeter',
     name: 'Laser altimeter',
     basedOn: 'LOLA (LRO)',
+    info:
+      'Fires laser pulses at the surface and times their return to build a 3D map of the terrain. Needed to find flat, safe landing sites.',
     category: 'topography',
-    mass: 13, power: 34, cost: 20, data: 2, science: 18,
+    mass: 11, power: 33, cost: 20, data: 2, science: 18,
   },
   {
     id: 'thermal',
     name: 'Thermal radiometer',
     basedOn: 'Diviner (LRO)',
+    info:
+      'Measures surface temperature by day and night. Finds cold places where ice can survive and tells solid rock from dust.',
     category: 'thermal',
-    mass: 12, power: 25, cost: 15, data: 1, science: 12,
+    mass: 11, power: 25, cost: 15, data: 1, science: 12,
   },
   {
     id: 'neutron',
     name: 'Neutron detector',
     basedOn: 'LEND (LRO)',
+    info:
+      'Counts neutrons coming from the surface. A drop in their number points to hydrogen, a sign of water ice in the soil.',
     category: 'volatiles',
-    mass: 26, power: 13, cost: 18, data: 0.2, science: 14,
+    mass: 26, power: 12, cost: 18, data: 0.2, science: 14,
   },
   {
     id: 'sampler',
     name: 'Sample collection arm',
     basedOn: 'TAGSAM (OSIRIS-REx)',
+    info:
+      'Touches the surface for a few seconds and collects loose material, which is returned to Earth for study in laboratories.',
     category: 'sample',
     onlyFor: ['asteroid'],
     mass: 30, power: 20, cost: 60, data: 0.1, science: 35,

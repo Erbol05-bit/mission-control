@@ -189,23 +189,53 @@ function ResourcePanel({ result }) {
   )
 }
 
-function Card({ selected, disabled, onClick, onHover, title, lines, note }) {
+function Card({ selected, disabled, onClick, onHover, title, lines, note, info }) {
+  // "info" is a short explanation opened by the "?" button on the card.
+  const [open, setOpen] = useState(false)
+  const toggleInfo = (event) => {
+    event.stopPropagation()
+    setOpen(!open)
+  }
   return (
-    <button
+    <div
       className={selected ? 'card selected' : 'card'}
-      disabled={disabled}
-      onClick={onClick}
+      role="button"
+      tabIndex={disabled ? -1 : 0}
+      aria-pressed={selected}
+      aria-disabled={disabled}
+      onClick={disabled ? undefined : onClick}
+      onKeyDown={(event) => {
+        if (!disabled && (event.key === 'Enter' || event.key === ' ')) {
+          event.preventDefault()
+          onClick()
+        }
+      }}
       onMouseEnter={() => onHover?.(true)}
       onMouseLeave={() => onHover?.(false)}
       onFocus={() => onHover?.(true)}
       onBlur={() => onHover?.(false)}
     >
-      <strong>{title}</strong>
+      <strong>
+        <span className="card-title">{title}</span>
+        {info && (
+          <button
+            type="button"
+            className="info-button"
+            aria-label={`What does the ${title.toLowerCase()} do?`}
+            aria-expanded={open}
+            onClick={toggleInfo}
+            onKeyDown={(event) => event.stopPropagation()}
+          >
+            ?
+          </button>
+        )}
+      </strong>
+      {open && <span className="info-text">{info}</span>}
       {lines.map((line) => (
         <span key={line}>{line}</span>
       ))}
       {note && <em>{note}</em>}
-    </button>
+    </div>
   )
 }
 
@@ -343,6 +373,7 @@ function SpacecraftStep({ design, result, set }) {
               `${i.data} Gb/day · +${i.science} science`,
             ]}
             note={`Based on ${i.basedOn}`}
+            info={i.info}
           />
         ))}
       </div>

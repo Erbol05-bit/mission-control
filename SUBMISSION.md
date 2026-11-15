@@ -74,15 +74,20 @@ checked source data for every part.
 
 ## 5. Use of Artificial Intelligence
 
-We used AI tools and reviewed, tested and edited all of their output.
+The game concept and the design decisions came from the team: the choice of
+challenge and scenarios, the game loop, and the visual feedback system (part
+highlighting, warning signals on the 3D model, reactions to in-flight events,
+the science-phase animation). We used AI tools to carry out those ideas and we
+reviewed, tested and directed all of their output.
 
-- Claude (Anthropic): generated most of the game code (data file, rules engine,
-  interface, 3D scene), the first draft of the game data, and drafts of the
-  project texts. The 3D spacecraft and planets are built in code from simple
-  shapes; no AI-generated images or videos are used.
-- ChatGPT (OpenAI): brainstorming of the game concept and stages.
+- Claude (Anthropic): wrote most of the game code from the team's
+  instructions (data file, rules engine, interface, 3D scene), the first draft
+  of the game data, and drafts of the project texts.
+- ChatGPT (OpenAI): used to discuss and structure the game concept.
 
-No NASA logos, flags or mission identifiers appear in AI-generated content.
+The 3D spacecraft and planets are built in code from simple shapes. No
+AI-generated images, video or audio are used, and no NASA logos, flags or
+mission identifiers appear in AI-generated content.
 
 ## 6. NASA data and resources
 
@@ -100,9 +105,30 @@ No NASA logos, flags or mission identifiers appear in AI-generated content.
 
 ## 7. References
 
-Copy the table "Numbers checked against published mission data" and the list of
-NASA resources from SOURCES.md, plus:
+NASA resources:
+
+- Design and Develop Science Missions (NASA): https://www.nasa.gov/wp-content/uploads/2025/04/250323-design-and-develop-science-mission.pdf
+- General Mission Analysis Tool, GMAT (NASA): https://software.nasa.gov/software/GSC-19468-1
+- Concept Maturity Levels (NASA JPL): https://dataverse.jpl.nasa.gov/dataset.xhtml?persistentId=hdl:2014/44299
+- Mission Design Lab (NASA GSFC): https://etd.gsfc.nasa.gov/capabilities/integrated-design-center/mission-design-lab/
+- NASA Mission Viz: https://nasa.github.io/mission-viz/
+- Build It Yourself: A Learning Game About Telescopes (NASA): https://science.nasa.gov/mission/webb/game-build-it-yourself/
+- Mars Reconnaissance Orbiter Launch Press Kit (NASA/JPL): https://www.jpl.nasa.gov/news/press_kits/mro-launch-Aug05.pdf
+- MRO Science Instruments (NASA): https://science.nasa.gov/mission/mars-reconnaissance-orbiter/science-instruments
+- OSIRIS-REx fact sheet (NASA): https://www.nasa.gov/wp-content/uploads/2016/06/osiris_rex_factsheet5-25.pdf
+
+Other sources:
+
+- LRO launch press kit data, as reproduced by Spaceflight Now: https://spaceflightnow.com/atlas/av020/090610lro.html
+- MRO Project Overview, JPL 2005 (hosted by ESA): https://sci.esa.int/documents/33745/35957/1567254220760-09_Saunders_MRO.pdf
+
+Software:
 
 - React: https://react.dev
 - Three.js: https://threejs.org
 - Vite: https://vite.dev
+
+AI tools:
+
+- Claude (Anthropic)
+- ChatGPT (OpenAI)
